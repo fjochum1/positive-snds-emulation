@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Safety of endocrine therapy interruption for pregnancy in HR-positive early breast cancer: a nationwide target trial emulation
 
 Analytic code for the target trial emulation of temporary endocrine therapy (ET)
@@ -76,3 +77,6 @@ for full detail.
 Jochum F, et al. *Safety of endocrine therapy interruption for pregnancy in
 hormone receptor-positive early breast cancer: a nationwide target trial
 emulation. BMJ 2026* Correspondence: jochum.floriane@gmail.com
+=======
+# positive-snds-emulation
+>>>>>>> 1510ebaf20116867a0285acf22485ccf0ee4d4c4
