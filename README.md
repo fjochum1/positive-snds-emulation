@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Safety of endocrine therapy interruption for pregnancy in HR-positive early breast cancer: a nationwide target trial emulation
 
 Analytic code for the target trial emulation of temporary endocrine therapy (ET)
@@ -26,10 +25,10 @@ Authority (CNIL) to conduct a study of public interest.
 positive-snds-emulation/
 ├── README.md
 └── R/
-    ├── 00_setup.R                     # paths, packages, plotting theme (edit paths here)
+    ├── 00_setup.R                     # paths, packages
     ├── 01_trial1_clone_censor_weight.R  # Trial 1: clone → censor → IP weights → MSM
     ├── 02_trial2_clone_censor_weight.R  # Trial 2: clone → censor → IP weights → MSM
-    ├── 03_trial1_bootstrap_results.R    # Trial 1: bootstrap CIs, 5-year risk differences, figures
+    ├── 03_trial1_bootstrap_results.R    # Trial 1: bootstrap CIs, 5-year risk differences
     ├── 04_trial2_bootstrap_results.R    # Trial 2: bootstrap CIs, 5-year risk differences
     ├── functions_msm_bootstrap.R        # shared MSM, bootstrap and CI-extraction functions
     ├── 05_figures.R                     # Figures 2, 3, 4 from the bootstrap outputs
@@ -76,7 +75,5 @@ for full detail.
 
 Jochum F, et al. *Safety of endocrine therapy interruption for pregnancy in
 hormone receptor-positive early breast cancer: a nationwide target trial
-emulation. BMJ 2026* Correspondence: jochum.floriane@gmail.com
-=======
-# positive-snds-emulation
->>>>>>> 1510ebaf20116867a0285acf22485ccf0ee4d4c4
+emulation. BMJ 2026* 
+
