@@ -235,6 +235,7 @@ calculate_ip_weights <- function(person_month_df, censored_df) {
 
   df <- df %>% left_join(first_pregnancy_df, by = "person_id")
 
+  # Model 1: data
   model1_data <- df %>%
     filter(is.na(first_pregnancy_month) | month <= first_pregnancy_month) %>%
     mutate(outcome_pregnancy = as.integer(month == first_pregnancy_month),
@@ -248,6 +249,11 @@ calculate_ip_weights <- function(person_month_df, censored_df) {
                  "Endocrine_and_metabolism", "Psychiatric_disorders", "Other",
                  "depriv_index_quintile", "period_diag")
   base_pred <- paste(base_vars, collapse = " + ")
+  
+  # Model 2: data
+  model2_data <- df %%
+    select(person_id, month, all_of(categorical_vars), cumulative_side_effects) %>%
+    unique()
 
   # Model 1: probability of pregnancy (Pr1)
   var_model1 <- paste0(base_pred, " + ns(month, df=2) + cumulative_side_effects",
@@ -262,7 +268,7 @@ calculate_ip_weights <- function(person_month_df, censored_df) {
     model1 = speedglm(as.formula(paste("I(outcome_pregnancy == 1) ~", var_model1)),
                       data = model1_data, family = binomial()),
     model2 = speedglm(as.formula(paste("I(et == 1) ~", var_model2)),
-                      data = df, family = binomial()))
+                      data = model2_data, family = binomial()))
 
   tidy(fit$model1, exponentiate = TRUE, conf.int = TRUE) %>%
     select(-std.error, -p.value, -statistic) %>% print(n = Inf)

@@ -39,8 +39,8 @@ df_diff <- res$diff_vs_control
 # Readable labels
 recode_dataset <- function(x) factor(x, levels = c("overall", "low_risk", "high_risk"),
                                       labels = c("Overall", "Low/Intermediate risk", "High risk"))
-recode_control <- function(x) factor(x, levels = c("Control (>= 24mo ET)",),
-                                      labels = c("Control >= 60mo"))
+recode_control <- function(x) factor(x, levels = c("Control (>= 24mo ET)"),
+                                      labels = c("Control >= 24mo"))
 
 df_diff <- df_diff %>%
   mutate(interruption_window = "18-30mo",             # single window in Trial 1
