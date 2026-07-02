@@ -101,15 +101,26 @@ source("R/functions_msm_bootstrap.R")
 #   }
 
 # ==============================================================================
-# H. Dynamic continuation strategy (adverse-event-related interruption allowed)
-#    CHANGE: in the CONTROL arms only, do NOT censor an ET discontinuation that
-#    follows a serious ET-related adverse event in the preceding 3 months;
-#    condition the ET-utilisation weight model on adverse-event history.
+# H. Dynamic continuation strategy (adverse-event-related interruption allowed):
+#    in the CONTROL arms only, once a serious ET-related adverse event
+#    has occurred the woman is released from the continuation constraint (she may
+#    stop or continue ET thereafter) -- her discontinuation is no longer a
+#    deviation. The interruption arms are unaffected (an early stop there defines
+#    an earlier window, not a deviation).
 # ------------------------------------------------------------------------------
-#   In apply_censoring_rules(), for censor_et_stop_before_m24 / _m60, add:
-#     filter(!(cumulative_side_effects > lag(cumulative_side_effects, 3)))  # AE in prior 3 mo
-#   so AE-driven discontinuations are not treated as deviations. The interruption
-#   arms are unaffected (an early stop there defines an earlier window, not a
-#   deviation).
+#
+#   (i)  Censoring -- in apply_censoring_rules(), for the control ET-stop rules
+#        (censor_et_stop_before_m24 / _m60) add:  filter(ae_ever == 0)
+#        so an AE-driven discontinuation is not treated as a deviation.
+#
+#   (ii) Weights -- in calculate_ip_weights(), add a case to weight5 (before the
+#        et cases) so a released control clone is no longer at risk (weight 1):
+#          weight5 = case_when(
+#            month >= x_min ~ 1,
+#            is_control == 1 & ae_ever == 1 ~ 1,   # released after AE -> weight 1
+#            month < x_min & et == 0 ~ 0,
+#            month < x_min & et == 1 ~ 1 / Pr2,
+#            TRUE ~ NA_real_)
+#
 
 
